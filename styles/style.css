@@ -1,0 +1,16 @@
+.transBtn {
+    background: #00A4ED;
+    color: #ffffff;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+}
+.tansDisable {
+    background: #5DCCFD;
+}
+.transText {
+    background:  #F6F9FB;
+    border: 1px solid #00A4ED;
+    padding: 5px;
+}
