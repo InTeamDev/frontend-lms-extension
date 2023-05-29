@@ -1,16 +1,25 @@
 .transBtn {
-    background: #00A4ED;
-    color: #ffffff;
-    width: 200px;
-    height: 50px;
-    border-radius: 5px;
-    border: none;
+  background: #00a4ed;
+  color: #ffffff;
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
 }
 .tansDisable {
-    background: #5DCCFD;
+  background: #5dccfd;
 }
 .transText {
-    background:  #F6F9FB;
-    border: 1px solid #00A4ED;
-    padding: 5px;
+  background: #f6f9fb;
+  border: 1px solid #00a4ed;
+  padding: 5px;
+}
+.returnBtn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
