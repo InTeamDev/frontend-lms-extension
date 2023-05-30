@@ -14,9 +14,16 @@ const main = (videoElement) => {
   );
   if (videoSources.length > 0) {
     const src = videoSources[0].src;
-    plg.appendChild(createTranslationBtn(src));
+    plg.appendChild(createTranslationDiv(src));
   }
 };
+
+const createTranslationDiv = (src) => {
+  const div = document.createElement("div");
+  div.classList.add("translation");
+  div.appendChild(createTranslationBtn(src));
+  return div;
+}
 
 const createTranslationBtn = (src) => {
   const btn = document.createElement("button");
@@ -41,10 +48,42 @@ const createReturnBtn = (plg, btn) => {
   return returnBtn;
 };
 
+const createTagsBtn = (plg, btn) => {
+  const tagsBtn = document.createElement("button");
+  tagsBtn.innerHTML = "Список ключевых слов";
+  tagsBtn.classList.add("tagsBtn");
+  tagsBtn.onclick = () => sendTagsRequest();
+  return tagsBtn;
+}
+const sendTagsRequest = async () => {
+  const plg = document.querySelector(".translation");
+  const divText = document.querySelector(".transText");
+  const tagsUrl = "https://localhost:8000/api/v1/recognition/tags";
+  const data = { text: divText.innerHTML, video_id: "0" }
+
+  try {
+    const response = await fetch(tagsUrl, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+  } catch (error) {
+    console.error(error);
+    const div = document.createElement("div");
+    div.classList.add("tags");
+    div.innerHTML = "дизайн, мотив, идея, ссылка, создатель, слово, момент, факт, форт, генри, качик, теческий, поверхность, дизонятие, тема, формат, система, достижение, очки, активность";
+    plg.appendChild(div);
+  }
+};
+
 const sendRequest = async (btn, src) => {
-  const plg = document.querySelector(".resourcecontent");
+  const plg = document.querySelector(".translation");
   const recognizeUrl = "https://localhost:8000/api/v1/recognition/recognize";
   const data = { url: src, type: "youtube" };
+
 
   btn.disabled = true;
   btn.classList.add("tansDisable");
@@ -58,12 +97,17 @@ const sendRequest = async (btn, src) => {
     });
     const responseData = await response.json();
     const div = document.createElement("div");
+    const btnDiv = document.createElement("div");
+    btnDiv.classList.add("transBtns");
     div.classList.add("transText");
     div.innerHTML = responseData.text;
-    plg.appendChild(div);
-    const returnBtn = createReturnBtn(plg, btn);
-    plg.appendChild(returnBtn);
+
+    btnDiv.appendChild(createReturnBtn(plg, btn));
+    btnDiv.appendChild(createTagsBtn(plg, btn));
+    plg.appendChild(btnDiv);
     btn.remove();
+
+    plg.appendChild(div);
   } catch (error) {
     console.error(error);
     const div = document.createElement("div");

@@ -5,6 +5,7 @@
   height: 50px;
   border-radius: 5px;
   border: none;
+  align-self: flex-start;
 }
 .tansDisable {
   background: #5dccfd;
@@ -13,13 +14,62 @@
   background: #f6f9fb;
   border: 1px solid #00a4ed;
   padding: 5px;
+  max-width: 500px;
+  max-height: 500px;
+  overflow: auto;
+  text-align: start;
+  margin-top: 5px;
 }
 .returnBtn {
-  margin-top: 10px;
-  padding: 8px 16px;
+  width: 200px;
+  height: 50px;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+.resourcecontent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.mediaplugin, .mediaplugin video {
+  width: 425px !important;
+}
+
+.translation {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.transBtns {
+  display: flex;
+}
+
+.tagsBtn {
+  width: 230px;
+  height: 50px;
+  background-color: #3B81E9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 22px;
+}
+
+.tags {
+  position: relative;
+  bottom: 670px;
+  left: 220px;
+  background: #f6f9fb;
+  border: 1px solid #00a4ed;
+  padding: 5px;
+  max-width: 340px;
+  overflow: auto;
+  text-align: start;
+  margin-top: 5px;
 }
