@@ -39,6 +39,7 @@ const createReturnBtn = (plg, btn) => {
   returnBtn.classList.add("returnBtn");
   returnBtn.onclick = () => {
     plg.removeChild(plg.querySelector(".transText"));
+    plg.removeChild(plg.querySelector(".transBtns"));
     btn.disabled = false;
     btn.innerHTML = "Перевод в текст";
     btn.classList.remove("tansDisable");
