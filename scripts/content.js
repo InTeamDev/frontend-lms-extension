@@ -72,7 +72,7 @@ const sendTagsRequest = async () => {
     const div = document.createElement("div");
     div.classList.add("tags");
     const tags = "";
-    responseData.tags.array.forEach(element => {
+    responseData.tags.forEach(element => {
       tags += element + " ";
     });
     div.innerHTML = tags;
