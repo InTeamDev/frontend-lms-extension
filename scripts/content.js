@@ -48,7 +48,7 @@ const createReturnBtn = (plg, btn) => {
   return returnBtn;
 };
 
-const createTagsBtn = (plg, btn) => {
+const createTagsBtn = () => {
   const tagsBtn = document.createElement("button");
   tagsBtn.innerHTML = "Список ключевых слов";
   tagsBtn.classList.add("tagsBtn");
@@ -103,7 +103,7 @@ const sendRequest = async (btn, src) => {
     div.innerHTML = responseData.text;
 
     btnDiv.appendChild(createReturnBtn(plg, btn));
-    btnDiv.appendChild(createTagsBtn(plg, btn));
+    btnDiv.appendChild(createTagsBtn());
     plg.appendChild(btnDiv);
     btn.remove();
 
