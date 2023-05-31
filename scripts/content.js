@@ -68,13 +68,20 @@ const sendTagsRequest = async () => {
       headers: { "Content-Type": "application/json" },
     });
 
-    const responseData = await response.json();
-    console.log(responseData);
+    const responseData = await response.json();;
+    const div = document.createElement("div");
+    div.classList.add("tags");
+    const tags = "";
+    responseData.tags.array.forEach(element => {
+      tags += element + " ";
+    });
+    div.innerHTML = tags;
+    plg.appendChild(div);
   } catch (error) {
     console.error(error);
     const div = document.createElement("div");
     div.classList.add("tags");
-    div.innerHTML = "дизайн, мотив, идея, ссылка, создатель, слово, момент, факт, форт, генри, качик, теческий, поверхность, дизонятие, тема, формат, система, достижение, очки, активность";
+    div.innerHTML = "Не удалось получить данные 😞";
     plg.appendChild(div);
   }
 };
