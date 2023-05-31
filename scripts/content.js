@@ -23,7 +23,7 @@ const createTranslationDiv = (src) => {
   div.classList.add("translation");
   div.appendChild(createTranslationBtn(src));
   return div;
-}
+};
 
 const createTranslationBtn = (src) => {
   const btn = document.createElement("button");
@@ -55,12 +55,12 @@ const createTagsBtn = () => {
   tagsBtn.classList.add("tagsBtn");
   tagsBtn.onclick = () => sendTagsRequest();
   return tagsBtn;
-}
+};
 const sendTagsRequest = async () => {
   const plg = document.querySelector(".translation");
   const divText = document.querySelector(".transText");
   const tagsUrl = "https://localhost:8000/api/v1/recognition/tags";
-  const data = { text: divText.innerHTML, video_id: "0" }
+  const data = { text: divText.innerHTML, video_id: "0" };
 
   try {
     const response = await fetch(tagsUrl, {
@@ -69,14 +69,10 @@ const sendTagsRequest = async () => {
       headers: { "Content-Type": "application/json" },
     });
 
-    const responseData = await response.json();;
+    const responseData = await response.json();
     const div = document.createElement("div");
     div.classList.add("tags");
-    const tags = "";
-    responseData.tags.forEach(element => {
-      tags += element + " ";
-    });
-    div.innerHTML = tags;
+    div.innerHTML = responseData.tags.join(", ");
     plg.appendChild(div);
   } catch (error) {
     console.error(error);
@@ -91,7 +87,6 @@ const sendRequest = async (btn, src) => {
   const plg = document.querySelector(".translation");
   const recognizeUrl = "https://localhost:8000/api/v1/recognition/recognize";
   const data = { url: src, type: "youtube" };
-
 
   btn.disabled = true;
   btn.classList.add("tansDisable");
