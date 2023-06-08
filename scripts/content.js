@@ -117,6 +117,7 @@ const sendTagsRequest = async (btn) => {
 const sendRequest = async (btn, src) => {
   const plg = document.querySelector(".translation");
   const transText = document.querySelector(".transText");
+  const tranBtn = document.querySelector(".transBtn");
   const recognizeUrl = "https://localhost:8000/api/v1/recognition/recognize";
   const data = { url: src, type: "youtube" };
 
@@ -153,6 +154,8 @@ const sendRequest = async (btn, src) => {
     div.classList.add("transText");
     div.innerHTML = "Не удалось получить данные 😞";
     plg.appendChild(div);
+    tranBtn.innerHTML = "Перевод в текст";
+    tranBtn.classList.remove("tansDisable");
   } finally {
     btn.disabled = false;
   }
