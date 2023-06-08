@@ -85,6 +85,10 @@ const sendTagsRequest = async (btn) => {
   const tagsUrl = "https://localhost:8000/api/v1/recognition/tags";
   const data = { text: divText.innerHTML, video_id: "0" };
 
+  btn.classList.add("tansDisable");
+  btn.innerHTML = "Получение ключевых слов...";
+  btn.disabled = true;
+
   if (tags != null) {
     tags.remove();
   }
