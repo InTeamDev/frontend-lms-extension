@@ -40,11 +40,19 @@ const createReturnBtn = (plg, btn) => {
   returnBtn.onclick = () => {
     plg.removeChild(plg.querySelector(".transText"));
     plg.removeChild(plg.querySelector(".transBtns"));
+    if (plg.querySelector(".tags") != null) 
+    {
+      plg.removeChild(plg.querySelector(".tags"));
+    }
+    if (plg.querySelector(".tagsBtn") != null) 
+    {
+      plg.removeChild(plg.querySelector(".tagsBtn"));
+    }
     btn.disabled = false;
     btn.innerHTML = "Перевод в текст";
     btn.classList.remove("tansDisable");
     plg.appendChild(btn);
-    plg.removeChild(returnBtn);
+    returnBtn.remove();
   };
   return returnBtn;
 };
@@ -53,14 +61,33 @@ const createTagsBtn = () => {
   const tagsBtn = document.createElement("button");
   tagsBtn.innerHTML = "Список ключевых слов";
   tagsBtn.classList.add("tagsBtn");
-  tagsBtn.onclick = () => sendTagsRequest();
+  tagsBtn.onclick = () => sendTagsRequest(tagsBtn);
   return tagsBtn;
 };
-const sendTagsRequest = async () => {
+
+const createReturnTagsBtn = (plg) => {
+  const btnDiv = document.querySelector(".transBtns");
+  const returnBtn = document.createElement("button");
+  returnBtn.innerHTML = "Скрыть ключевые слова";
+  returnBtn.classList.add("returnBtn");
+  returnBtn.onclick = () => {
+    plg.removeChild(plg.querySelector(".tags"));
+    returnBtn.remove();
+    btnDiv.appendChild(createTagsBtn());    
+  };
+  return returnBtn;
+}
+const sendTagsRequest = async (btn) => {
   const plg = document.querySelector(".translation");
+  const btns = document.querySelector(".transBtns");
   const divText = document.querySelector(".transText");
+  const tags = document.querySelector(".tags");
   const tagsUrl = "https://localhost:8000/api/v1/recognition/tags";
   const data = { text: divText.innerHTML, video_id: "0" };
+
+  if (tags != null) {
+    tags.remove();
+  }
 
   try {
     const response = await fetch(tagsUrl, {
@@ -74,23 +101,32 @@ const sendTagsRequest = async () => {
     div.classList.add("tags");
     div.innerHTML = responseData.tags.join(", ");
     plg.appendChild(div);
+    btns.appendChild(createReturnTagsBtn(plg));
+    btn.remove()
   } catch (error) {
     console.error(error);
     const div = document.createElement("div");
     div.classList.add("tags");
     div.innerHTML = "Не удалось получить данные 😞";
     plg.appendChild(div);
+    btns.appendChild(createReturnTagsBtn(plg));
+    btn.remove()
   }
 };
 
 const sendRequest = async (btn, src) => {
   const plg = document.querySelector(".translation");
+  const transText = document.querySelector(".transText");
   const recognizeUrl = "https://localhost:8000/api/v1/recognition/recognize";
   const data = { url: src, type: "youtube" };
 
   btn.disabled = true;
   btn.classList.add("tansDisable");
   btn.innerHTML = "Перевод...";
+
+  if (transText != null) {
+    transText.remove();
+  }
 
   try {
     const response = await fetch(recognizeUrl, {

@@ -49,6 +49,7 @@
 
 .transBtns {
   display: flex;
+  justify-content: space-between;
 }
 
 .tagsBtn {
